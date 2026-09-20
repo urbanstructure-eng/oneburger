@@ -180,13 +180,13 @@ export default function App() {
             <RocketMascot customUrl={customMascotUrl} animationKey={animKey} />
           </div>
 
-          {/* One Burger Script Logo with subtle star sparkles */}
+          {/* One Burger Script Logo with elegant spray graffiti reveal */}
           <div
-            onClick={() => fileInputRef.current?.click()}
-            title="Click to update logo"
+            onClick={replayLanding}
+            title="Click to replay spray-paint reveal"
             className="w-[280px] h-[210px] sm:w-[380px] sm:h-[280px] md:w-[480px] md:h-[350px] lg:w-[540px] lg:h-[400px] flex items-center justify-center cursor-pointer"
           >
-            <OneBurgerLogo customUrl={customLogoUrl} />
+            <OneBurgerLogo customUrl={customLogoUrl} animationKey={animKey} />
           </div>
 
           {/* Minimalist Coming Soon Button */}

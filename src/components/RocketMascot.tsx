@@ -5,15 +5,18 @@ interface MascotProps {
   className?: string;
   customUrl?: string | null;
   animationKey?: number;
+  loopIntervalSeconds?: number;
 }
 
 export const RocketMascot: React.FC<MascotProps> = ({
   className = '',
   customUrl,
   animationKey = 0,
+  loopIntervalSeconds = 50,
 }) => {
   const [localFileExists, setLocalFileExists] = useState(false);
   const [imgError, setImgError] = useState(false);
+  const [internalLoopCount, setInternalLoopCount] = useState(0);
 
   useEffect(() => {
     // Check if oneburger--2.png was placed in /public
@@ -22,6 +25,17 @@ export const RocketMascot: React.FC<MascotProps> = ({
     testImg.onload = () => setLocalFileExists(true);
     testImg.onerror = () => setLocalFileExists(false);
   }, []);
+
+  // Automatic flight loop every 50 seconds
+  useEffect(() => {
+    if (!loopIntervalSeconds || loopIntervalSeconds <= 0) return;
+
+    const interval = setInterval(() => {
+      setInternalLoopCount((prev) => prev + 1);
+    }, loopIntervalSeconds * 1000);
+
+    return () => clearInterval(interval);
+  }, [loopIntervalSeconds]);
 
   // Priority:
   // 1. customUrl (direct user drag & drop / upload of oneburger--2.png)
@@ -32,10 +46,13 @@ export const RocketMascot: React.FC<MascotProps> = ({
     customUrl ||
     (localFileExists ? '/oneburger--2.png' : '/exact_rocket_mascot.png');
 
+  // Combined key so either external clicks or the 50-second timer triggers the fly-in
+  const effectiveKey = `${animationKey}-${internalLoopCount}`;
+
   return (
-    /* Flight path wrapper: Fly in from the left and land directly on top of the logo */
+    /* Flight path wrapper: Fly in from the left and land directly on top of the logo, re-triggering every 50 seconds */
     <motion.div
-      key={animationKey}
+      key={effectiveKey}
       id="rocket-mascot-flight-wrapper"
       className={`relative flex items-center justify-center select-none ${className}`}
       initial={{
