@@ -1,0 +1,7 @@
+{
+  "name": "One Burger",
+  "description": "A clean, minimalist gradient using the #f2e7d1 brand palette with the One Burger retro script logo in the center.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
