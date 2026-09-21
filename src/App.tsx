@@ -20,6 +20,7 @@ const GRADIENTS = [
 const STORAGE_KEY = 'oneburger_logo_custom_data';
 const STORAGE_MASCOT_KEY = 'oneburger_mascot_custom_data';
 const STORAGE_BURGER_BG_KEY = 'oneburger_form_burger_bg';
+const STORAGE_HANGING_MASCOT_KEY = 'oneburger_hanging_mascot_url_v8';
 
 export default function App() {
   const [gradientIdx, setGradientIdx] = useState(0);
@@ -47,6 +48,13 @@ export default function App() {
       return null;
     }
   });
+  const [customHangingMascotUrl, setCustomHangingMascotUrl] = useState<string | null>(() => {
+    try {
+      return localStorage.getItem(STORAGE_HANGING_MASCOT_KEY) || null;
+    } catch {
+      return null;
+    }
+  });
 
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -62,7 +70,14 @@ export default function App() {
       reader.onload = (e) => {
         if (e.target?.result) {
           const dataUrl = e.target.result as string;
-          if (file.name.includes('2') || file.name.toLowerCase().includes('rocket') || file.name.toLowerCase().includes('mascot')) {
+          if (file.name.includes('17') || file.name.toLowerCase().includes('hang') || file.name.toLowerCase().includes('king')) {
+            setCustomHangingMascotUrl(dataUrl);
+            try {
+              localStorage.setItem(STORAGE_HANGING_MASCOT_KEY, dataUrl);
+            } catch {
+              // Ignore
+            }
+          } else if (file.name.includes('2') || file.name.toLowerCase().includes('rocket') || file.name.toLowerCase().includes('mascot')) {
             setCustomMascotUrl(dataUrl);
             try {
               localStorage.setItem(STORAGE_MASCOT_KEY, dataUrl);
@@ -117,9 +132,11 @@ export default function App() {
     e.stopPropagation();
     setCustomLogoUrl(null);
     setCustomMascotUrl(null);
+    setCustomHangingMascotUrl(null);
     try {
       localStorage.removeItem(STORAGE_KEY);
       localStorage.removeItem(STORAGE_MASCOT_KEY);
+      localStorage.removeItem(STORAGE_HANGING_MASCOT_KEY);
     } catch {
       // Ignore
     }
@@ -218,6 +235,8 @@ export default function App() {
         burgerBgUrl={burgerBgUrl}
         onUpdateBurgerBg={(url) => setBurgerBgUrl(url)}
         logoUrl={customLogoUrl}
+        hangingMascotUrl={customHangingMascotUrl}
+        onUpdateHangingMascotUrl={(url) => setCustomHangingMascotUrl(url)}
       />
 
       {/* Drag & Drop Visual Cue overlay */}

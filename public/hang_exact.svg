@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1180" width="900" height="1180" fill="none">
+  <!-- Hand at Top Edge (flush with y=0) -->
+  <g id="mascot-grip-hand">
+    <!-- Upper Arm reaching up to the hand -->
+    <path d="M 292 185 C 285 125, 280 75, 288 48" stroke="#70121D" stroke-width="34" stroke-linecap="round" fill="none" />
+    
+    <!-- Glove Wrist Cuff -->
+    <path d="M 235 52 C 235 28, 340 28, 340 52 C 340 74, 235 74, 235 52 Z" fill="#FFFFFF" stroke="#70121D" stroke-width="13" stroke-linejoin="round" />
+    <path d="M 268 42 C 275 35, 305 35, 312 42" stroke="#70121D" stroke-width="8" stroke-linecap="round" fill="none" />
+
+    <!-- Clutched Glove: 4 Knuckles flush with y=0 -->
+    <!-- Finger 1 -->
+    <path d="M 238 32 C 238 0, 268 0, 268 32 C 268 50, 238 50, 238 32 Z" fill="#FFFFFF" stroke="#70121D" stroke-width="12" stroke-linejoin="round" />
+    <!-- Finger 2 -->
+    <path d="M 266 28 C 266 0, 296 0, 296 28 C 296 50, 266 50, 266 28 Z" fill="#FFFFFF" stroke="#70121D" stroke-width="12" stroke-linejoin="round" />
+    <!-- Finger 3 -->
+    <path d="M 294 28 C 294 0, 324 0, 324 28 C 324 50, 294 50, 294 28 Z" fill="#FFFFFF" stroke="#70121D" stroke-width="12" stroke-linejoin="round" />
+    <!-- Finger 4 -->
+    <path d="M 322 34 C 322 2, 350 2, 350 34 C 350 52, 322 52, 322 34 Z" fill="#FFFFFF" stroke="#70121D" stroke-width="12" stroke-linejoin="round" />
+    <!-- Curled Thumb -->
+    <path d="M 346 36 C 368 46, 358 70, 336 64" fill="#FFFFFF" stroke="#70121D" stroke-width="12" stroke-linecap="round" />
+  </g>
+
+  <!-- Entire Burger Body dynamically tilted at natural 15.5 deg hanging angle -->
+  <g id="mascot-tilted-body" transform="rotate(15.5 292 185)">
+    <!-- Left Leg: 1 Full Spiral Loop -->
+    <g id="left-leg">
+      <path d="M 265 590 C 240 640, 190 665, 230 705 C 280 735, 310 670, 265 660 C 215 650, 190 745, 220 795" stroke="#70121D" stroke-width="32" stroke-linecap="round" fill="none" />
+      <!-- Sock Cuff -->
+      <path d="M 190 792 C 190 770, 258 778, 252 808 C 246 832, 180 820, 190 792 Z" fill="#FFFFFF" stroke="#70121D" stroke-width="12" stroke-linejoin="round" />
+      <!-- Boot Left -->
+      <path d="M 242 800 C 246 836, 200 868, 170 868 C 110 868, 72 822, 72 785 C 72 745, 125 738, 162 760 C 195 778, 206 762, 226 785 Z" fill="#FFFFFF" stroke="#70121D" stroke-width="15" stroke-linejoin="round" />
+      <path d="M 76 792 C 86 840, 145 870, 210 852" stroke="#70121D" stroke-width="13" stroke-linecap="round" fill="none" />
+    </g>
+
+    <!-- Right Leg: Double Spiral Coil -->
+    <g id="right-leg">
+      <path d="M 430 605 C 395 655, 360 685, 405 710 C 450 735, 475 685, 430 680 C 380 680, 375 750, 420 770 C 470 790, 490 740, 450 735 C 400 735, 405 810, 465 840" stroke="#70121D" stroke-width="32" stroke-linecap="round" fill="none" />
+      <!-- Sock Cuff -->
+      <path d="M 438 835 C 438 810, 510 818, 505 848 C 500 872, 428 862, 438 835 Z" fill="#FFFFFF" stroke="#70121D" stroke-width="12" stroke-linejoin="round" />
+      <!-- Boot Right -->
+      <path d="M 485 842 C 522 860, 552 895, 542 932 C 528 972, 452 988, 412 970 C 370 952, 402 888, 436 870 C 460 852, 450 838, 485 842 Z" fill="#FFFFFF" stroke="#70121D" stroke-width="15" stroke-linejoin="round" />
+      <path d="M 415 965 C 470 988, 532 956, 542 925" stroke="#70121D" stroke-width="13" stroke-linecap="round" fill="none" />
+    </g>
+
+    <!-- Right Arm (Outstretched with Open Palm) -->
+    <g id="right-arm">
+      <path d="M 640 480 Q 750 555, 775 620" stroke="#70121D" stroke-width="32" stroke-linecap="round" fill="none" />
+      <!-- Wrist Cuff -->
+      <path d="M 748 615 C 748 592, 825 615, 814 642 C 804 665, 738 642, 748 615 Z" fill="#FFFFFF" stroke="#70121D" stroke-width="12" stroke-linejoin="round" />
+      <!-- Open 4-fingered White Cartoon Glove -->
+      <path d="M 754 625 C 720 660, 695 690, 730 710 C 772 735, 872 730, 896 665 C 908 630, 836 620, 786 625 Z" fill="#FFFFFF" stroke="#70121D" stroke-width="14" stroke-linejoin="round" />
+      <!-- Finger Outlines -->
+      <path d="M 734 670 C 714 682, 728 706, 748 700" stroke="#70121D" stroke-width="12" stroke-linecap="round" fill="none" />
+      <path d="M 774 720 C 794 750, 828 746, 824 710" stroke="#70121D" stroke-width="12" stroke-linecap="round" fill="none" />
+      <path d="M 834 710 C 864 740, 894 725, 874 685" stroke="#70121D" stroke-width="12" stroke-linecap="round" fill="none" />
+      <path d="M 878 680 C 914 700, 928 670, 894 645" stroke="#70121D" stroke-width="12" stroke-linecap="round" fill="none" />
+      <!-- 3 Dart Stitches on Back of Glove -->
+      <path d="M 790 650 L 808 662" stroke="#70121D" stroke-width="8" stroke-linecap="round" />
+      <path d="M 805 642 L 822 655" stroke="#70121D" stroke-width="8" stroke-linecap="round" />
+      <path d="M 818 634 L 834 646" stroke="#70121D" stroke-width="8" stroke-linecap="round" />
+    </g>
+
+    <!-- Bottom Bun -->
+    <path d="M 180 520 C 180 625, 665 630, 665 520 Z" fill="#FFFFFF" stroke="#70121D" stroke-width="16" stroke-linejoin="round" />
+
+    <!-- Lower Patty Layer -->
+    <path d="M 160 495 C 160 532, 685 532, 685 495 C 685 470, 160 470, 160 495 Z" fill="#70121D" stroke="#70121D" stroke-width="8" stroke-linejoin="round" />
+    <!-- Patty Texture marks -->
+    <path d="M 230 505 Q 242 515 230 525" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" fill="none" />
+    <path d="M 500 505 Q 512 515 500 525" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" fill="none" />
+    <path d="M 590 500 Q 602 510 590 520" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" fill="none" />
+
+    <!-- Melted Cheese Layer with drooping pointed corner -->
+    <path d="M 170 455 L 675 465 L 640 508 L 560 475 L 420 542 L 360 470 L 240 505 L 170 455 Z" fill="#FFFFFF" stroke="#70121D" stroke-width="14" stroke-linejoin="round" />
+
+    <!-- Upper Beef Patty Layer -->
+    <path d="M 155 415 C 150 475, 210 488, 370 480 C 550 475, 715 480, 715 425 C 715 390, 160 390, 155 415 Z" fill="#70121D" stroke="#70121D" stroke-width="8" stroke-linejoin="round" />
+    <!-- Upper Patty texture flecks -->
+    <path d="M 210 435 Q 222 445 210 455" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" fill="none" />
+    <path d="M 270 450 Q 282 460 270 470" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" fill="none" />
+    <path d="M 530 450 Q 542 460 530 470" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" fill="none" />
+    <path d="M 625 435 Q 637 445 625 455" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" fill="none" />
+
+    <!-- Ruffled Wavy Lettuce Layer -->
+    <path d="M 155 370 Q 195 410 235 380 Q 275 420 325 385 Q 385 425 445 390 Q 515 430 585 395 Q 655 435 715 400 Q 745 418 735 390 C 715 365, 175 345, 155 370 Z" fill="#FFFFFF" stroke="#70121D" stroke-width="14" stroke-linejoin="round" />
+
+    <!-- Top Bun Dome -->
+    <path d="M 175 365 C 170 210, 310 155, 435 158 C 560 160, 680 230, 725 385 C 570 405, 320 400, 175 365 Z" fill="#FFFFFF" stroke="#70121D" stroke-width="16" stroke-linejoin="round" />
+
+    <!-- Royal Crown tilted on upper-right bun -->
+    <g id="mascot-crown">
+      <!-- Base curve along bun -->
+      <path d="M 505 175 C 560 215, 625 235, 670 248" stroke="#70121D" stroke-width="12" stroke-linecap="round" fill="none" />
+      <path d="M 515 160 C 565 200, 630 220, 672 232" stroke="#70121D" stroke-width="8" stroke-linecap="round" fill="none" />
+      <!-- Crown 3 Peaks Body -->
+      <path d="M 510 165 L 525 78 L 560 155 L 610 100 L 638 175 L 685 135 L 668 230 Z" fill="#FFFFFF" stroke="#70121D" stroke-width="14" stroke-linejoin="round" />
+      <!-- Crown Tip Pearls -->
+      <circle cx="525" cy="72" r="10" fill="#FFFFFF" stroke="#70121D" stroke-width="10" />
+      <circle cx="610" cy="92" r="11" fill="#FFFFFF" stroke="#70121D" stroke-width="10" />
+      <circle cx="685" cy="128" r="10" fill="#FFFFFF" stroke="#70121D" stroke-width="10" />
+    </g>
+
+    <!-- Sesame Seeds on Bun -->
+    <ellipse cx="230" cy="265" rx="8" ry="16" transform="rotate(-35 230 265)" fill="none" stroke="#70121D" stroke-width="8" />
+    <ellipse cx="270" cy="225" rx="8" ry="15" transform="rotate(-20 270 225)" fill="none" stroke="#70121D" stroke-width="8" />
+    <ellipse cx="435" cy="190" rx="8" ry="16" transform="rotate(15 435 190)" fill="none" stroke="#70121D" stroke-width="8" />
+    <ellipse cx="615" cy="305" rx="8" ry="16" transform="rotate(25 615 305)" fill="none" stroke="#70121D" stroke-width="8" />
+    <ellipse cx="670" cy="290" rx="8" ry="16" transform="rotate(35 670 290)" fill="none" stroke="#70121D" stroke-width="8" />
+    <ellipse cx="210" cy="320" rx="7" ry="14" transform="rotate(-45 210 320)" fill="none" stroke="#70121D" stroke-width="7" />
+    <ellipse cx="275" cy="315" rx="7" ry="14" transform="rotate(-15 275 315)" fill="none" stroke="#70121D" stroke-width="7" />
+
+    <!-- Left Eyeball & Pie Pupil -->
+    <ellipse cx="320" cy="288" rx="42" ry="60" transform="rotate(-6 320 288)" fill="#FFFFFF" stroke="#70121D" stroke-width="14" />
+    <path d="M 318 238 A 30 48 0 1 0 342 318 L 318 288 Z" fill="#70121D" />
+
+    <!-- Right Eyeball & Pie Pupil -->
+    <ellipse cx="485" cy="292" rx="44" ry="62" transform="rotate(8 485 292)" fill="#FFFFFF" stroke="#70121D" stroke-width="14" />
+    <path d="M 485 240 A 32 50 0 1 0 510 322 L 485 292 Z" fill="#70121D" />
+
+    <!-- Eyebrows / Eyelid creases -->
+    <path d="M 285 222 Q 320 212 355 228" stroke="#70121D" stroke-width="10" stroke-linecap="round" fill="none" />
+    <path d="M 455 226 Q 490 216 525 232" stroke="#70121D" stroke-width="10" stroke-linecap="round" fill="none" />
+
+    <!-- Button Nose -->
+    <path d="M 382 298 C 408 292, 414 318, 394 328 C 378 335, 372 318, 382 298" fill="#FFFFFF" stroke="#70121D" stroke-width="12" stroke-linejoin="round" />
+
+    <!-- Big Open Smiling Mouth with Tongue -->
+    <!-- Cheek dimples -->
+    <path d="M 260 315 Q 275 335 265 350" stroke="#70121D" stroke-width="12" stroke-linecap="round" fill="none" />
+    <path d="M 545 338 Q 560 358 545 378" stroke="#70121D" stroke-width="12" stroke-linecap="round" fill="none" />
+
+    <!-- Open mouth cavity -->
+    <path d="M 285 330 Q 405 385 538 355 Q 515 465 405 455 Q 325 445 285 330 Z" fill="#70121D" stroke="#70121D" stroke-width="14" stroke-linejoin="round" />
+
+    <!-- Tongue resting in bottom-center -->
+    <path d="M 365 428 C 365 382, 460 378, 475 422 C 460 448, 390 450, 365 428 Z" fill="#FFFFFF" stroke="#70121D" stroke-width="12" stroke-linejoin="round" />
+    <path d="M 420 395 L 422 425" stroke="#70121D" stroke-width="9" stroke-linecap="round" fill="none" />
+  </g>
+</svg>
