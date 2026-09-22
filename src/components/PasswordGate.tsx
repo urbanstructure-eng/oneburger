@@ -21,11 +21,6 @@ export const PasswordGate: React.FC<PasswordGateProps> = ({ onUnlock, customLogo
     // Required password: 1970
     if (password.trim() === '1970') {
       setError(false);
-      try {
-        sessionStorage.setItem('oneburger_access_granted_1970', 'true');
-      } catch {
-        // ignore
-      }
       onUnlock();
     } else {
       setError(true);

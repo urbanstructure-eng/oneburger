@@ -22,19 +22,13 @@ const STORAGE_KEY = 'oneburger_logo_custom_data';
 const STORAGE_MASCOT_KEY = 'oneburger_mascot_custom_data';
 const STORAGE_BURGER_BG_KEY = 'oneburger_form_burger_bg';
 const STORAGE_HANGING_MASCOT_KEY = 'oneburger_hanging_mascot_url_v11';
-const ACCESS_KEY = 'oneburger_access_granted_1970';
 
 export default function App() {
   const [gradientIdx, setGradientIdx] = useState(0);
   const [animKey, setAnimKey] = useState(0);
   const [isNoticeOpen, setIsNoticeOpen] = useState(false);
-  const [isUnlocked, setIsUnlocked] = useState<boolean>(() => {
-    try {
-      return sessionStorage.getItem(ACCESS_KEY) === 'true';
-    } catch {
-      return false;
-    }
-  });
+  // Always require password 1970 on first landing / page load
+  const [isUnlocked, setIsUnlocked] = useState<boolean>(false);
   const [burgerBgUrl, setBurgerBgUrl] = useState<string | null>(() => {
     try {
       return localStorage.getItem(STORAGE_BURGER_BG_KEY) || null;
@@ -306,11 +300,6 @@ export default function App() {
         <button
           id="btn-lock-site"
           onClick={() => {
-            try {
-              sessionStorage.removeItem(ACCESS_KEY);
-            } catch {
-              // Ignore
-            }
             setIsUnlocked(false);
           }}
           className="w-9 h-9 rounded-full bg-[#FAF6EE]/80 hover:bg-[#FAF6EE] text-[#781517] border border-[#781517]/15 flex items-center justify-center shadow-xs transition-transform active:scale-95 cursor-pointer"
@@ -326,14 +315,7 @@ export default function App() {
         {!isUnlocked && (
           <PasswordGate
             customLogoUrl={customLogoUrl}
-            onUnlock={() => {
-              try {
-                sessionStorage.setItem(ACCESS_KEY, 'true');
-              } catch {
-                // Ignore
-              }
-              setIsUnlocked(true);
-            }}
+            onUnlock={() => setIsUnlocked(true)}
           />
         )}
       </AnimatePresence>
