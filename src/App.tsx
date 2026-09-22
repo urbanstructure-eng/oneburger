@@ -7,8 +7,9 @@ import React, { useState, useRef } from 'react';
 import { OneBurgerLogo } from './components/OneBurgerLogo';
 import { RocketMascot } from './components/RocketMascot';
 import { SlideUpNoticePage } from './components/SlideUpNoticePage';
-import { Palette, Upload, RotateCcw, Play } from 'lucide-react';
-import { motion } from 'motion/react';
+import { PasswordGate } from './components/PasswordGate';
+import { Palette, Upload, RotateCcw, Play, Lock } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 
 const GRADIENTS = [
   'radial-gradient(circle at 50% 50%, #FAF6EE 0%, #F2E7D1 55%, #E5D5BB 100%)',
@@ -20,12 +21,20 @@ const GRADIENTS = [
 const STORAGE_KEY = 'oneburger_logo_custom_data';
 const STORAGE_MASCOT_KEY = 'oneburger_mascot_custom_data';
 const STORAGE_BURGER_BG_KEY = 'oneburger_form_burger_bg';
-const STORAGE_HANGING_MASCOT_KEY = 'oneburger_hanging_mascot_url_v8';
+const STORAGE_HANGING_MASCOT_KEY = 'oneburger_hanging_mascot_url_v11';
+const ACCESS_KEY = 'oneburger_access_granted_1970';
 
 export default function App() {
   const [gradientIdx, setGradientIdx] = useState(0);
   const [animKey, setAnimKey] = useState(0);
   const [isNoticeOpen, setIsNoticeOpen] = useState(false);
+  const [isUnlocked, setIsUnlocked] = useState<boolean>(() => {
+    try {
+      return sessionStorage.getItem(ACCESS_KEY) === 'true';
+    } catch {
+      return false;
+    }
+  });
   const [burgerBgUrl, setBurgerBgUrl] = useState<string | null>(() => {
     try {
       return localStorage.getItem(STORAGE_BURGER_BG_KEY) || null;
@@ -286,13 +295,48 @@ export default function App() {
         <button
           id="btn-switch-gradient"
           onClick={cycleGradient}
-          className="w-9 h-9 rounded-full bg-[#FAF6EE]/80 hover:bg-[#FAF6EE] text-[#781517] border border-[#781517]/15 flex items-center justify-center shadow-xs transition-transform active:scale-95"
+          className="w-9 h-9 rounded-full bg-[#FAF6EE]/80 hover:bg-[#FAF6EE] text-[#781517] border border-[#781517]/15 flex items-center justify-center shadow-xs transition-transform active:scale-95 cursor-pointer"
           aria-label="Cycle #f2e7d1 gradient variation"
           title="Change gradient tone"
         >
           <Palette className="w-4 h-4" />
         </button>
+
+        {/* Lock site button */}
+        <button
+          id="btn-lock-site"
+          onClick={() => {
+            try {
+              sessionStorage.removeItem(ACCESS_KEY);
+            } catch {
+              // Ignore
+            }
+            setIsUnlocked(false);
+          }}
+          className="w-9 h-9 rounded-full bg-[#FAF6EE]/80 hover:bg-[#FAF6EE] text-[#781517] border border-[#781517]/15 flex items-center justify-center shadow-xs transition-transform active:scale-95 cursor-pointer"
+          aria-label="Lock site with password"
+          title="Lock site (requires 1970)"
+        >
+          <Lock className="w-3.5 h-3.5" />
+        </button>
       </div>
+
+      {/* Password Gate Screen (Requires 1970 to enter) */}
+      <AnimatePresence>
+        {!isUnlocked && (
+          <PasswordGate
+            customLogoUrl={customLogoUrl}
+            onUnlock={() => {
+              try {
+                sessionStorage.setItem(ACCESS_KEY, 'true');
+              } catch {
+                // Ignore
+              }
+              setIsUnlocked(true);
+            }}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }

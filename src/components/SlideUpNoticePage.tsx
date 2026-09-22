@@ -4,6 +4,7 @@ import { X, Check, Sparkles } from 'lucide-react';
 import { OneBurgerLogo } from './OneBurgerLogo';
 import { HangingMascot } from './HangingMascot';
 import { UberEatsLogo, SkipTheDishesLogo } from './DeliveryPartnerLogos';
+import { ScooterMascot } from './ScooterMascot';
 
 interface SlideUpNoticePageProps {
   isOpen: boolean;
@@ -99,6 +100,17 @@ export const SlideUpNoticePage: React.FC<SlideUpNoticePageProps> = ({
     }, 600);
   };
 
+  // Close when pressing Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) {
+        handleClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen]);
+
   return (
     <motion.div
       id="slide-up-form-panel"
@@ -110,10 +122,18 @@ export const SlideUpNoticePage: React.FC<SlideUpNoticePageProps> = ({
         duration: 0.65,
         ease: [0.22, 1, 0.36, 1],
       }}
-      className="fixed inset-0 z-40 w-full h-full overflow-y-auto flex flex-col items-center justify-center py-6 px-4 select-none"
+      onClick={(e) => {
+        // Clicking backdrop outside the card closes the form
+        if (e.target === e.currentTarget) {
+          handleClose();
+        }
+      }}
+      className={`fixed inset-0 z-40 w-full h-full overflow-y-auto flex flex-col items-center justify-center py-6 px-4 select-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden ${
+        isOpen ? 'pointer-events-auto' : 'pointer-events-none'
+      }`}
       style={{
-        backgroundColor: '#F8F8F0',
-        backgroundImage: 'radial-gradient(circle at 50% 40%, #FAFAF2 0%, #F8F8F0 52%, #F1EFE5 100%)',
+        backgroundColor: '#F5F1E9',
+        backgroundImage: 'radial-gradient(circle at 50% 40%, #FAF7F0 0%, #F5F1E9 60%, #ECE7DC 100%)',
       }}
     >
       {/* Hidden file input for uploading the burger background if user wants custom */}
@@ -129,7 +149,7 @@ export const SlideUpNoticePage: React.FC<SlideUpNoticePageProps> = ({
         }}
       />
 
-      {/* Hanging King Burger Mascot swinging from the top edge - ONLY on the form page */}
+      {/* Hanging King Burger Mascot hanging from the top ceiling - ONLY on the form page */}
       <HangingMascot
         isOpen={isOpen}
         customUrl={hangingMascotUrl}
@@ -137,26 +157,31 @@ export const SlideUpNoticePage: React.FC<SlideUpNoticePageProps> = ({
       />
 
       {/* Unified Center Content Area: Form Card + Closely Attached Available Soon Delivery Logos */}
-      <div className="relative z-10 w-full max-w-sm sm:max-w-md flex flex-col items-center text-center">
+      <div className="relative z-30 w-full max-w-sm sm:max-w-md flex flex-col items-center text-center pointer-events-auto mt-7 sm:mt-9">
         {submitted ? (
           <motion.div
             initial={{ opacity: 0, scale: 0.92 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="relative w-full bg-white/95 backdrop-blur-md rounded-3xl p-7 sm:p-9 border border-[#70121D]/15 shadow-[0_20px_50px_rgba(112,18,29,0.1)] text-[#4A0A0D]"
+            className="relative w-full bg-white/95 backdrop-blur-md rounded-3xl pt-2 px-7 pb-7 sm:pt-2 sm:px-9 sm:pb-9 border border-[#70121D]/15 shadow-[0_20px_50px_rgba(112,18,29,0.1)] text-[#4A0A0D]"
           >
             {/* Close Button on top right of form card */}
             <button
               id="btn-form-card-close-success"
-              onClick={handleClose}
-              className="absolute top-4 right-4 w-9 h-9 rounded-full bg-[#70121D]/10 hover:bg-[#70121D]/20 text-[#70121D] flex items-center justify-center transition-colors cursor-pointer"
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                handleClose();
+              }}
+              className="absolute top-4 right-4 z-50 w-10 h-10 rounded-full bg-[#70121D]/10 hover:bg-[#70121D]/25 active:bg-[#70121D]/35 text-[#70121D] flex items-center justify-center transition-colors cursor-pointer pointer-events-auto"
               aria-label="Close form"
             >
-              <X className="w-4 h-4" />
+              <X className="w-5 h-5 pointer-events-none" />
             </button>
 
-            {/* Brand Logo on top of success card */}
-            <div className="w-32 h-20 mx-auto mb-2 flex items-center justify-center">
-              <OneBurgerLogo customUrl={logoUrl} className="w-full h-full" />
+            {/* Brand Logo overlapping top edge of form card */}
+            <div className="relative z-20 w-44 h-26 sm:w-52 sm:h-30 mx-auto -mt-13 sm:-mt-15 mb-2 flex items-center justify-center filter drop-shadow-[0_6px_14px_rgba(112,18,29,0.16)]">
+              <OneBurgerLogo customUrl={logoUrl} className="w-full h-full object-contain" />
             </div>
 
             <div className="w-14 h-14 rounded-full bg-[#70121D] text-[#FAF6EE] flex items-center justify-center mx-auto mb-3 shadow-md">
@@ -170,28 +195,38 @@ export const SlideUpNoticePage: React.FC<SlideUpNoticePageProps> = ({
             </p>
             <button
               id="btn-return-home"
-              onClick={handleClose}
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                handleClose();
+              }}
               className="px-7 py-2.5 rounded-full bg-[#70121D] text-[#FAF6EE] font-bold text-sm hover:bg-[#580D16] transition-all shadow-md active:scale-95 cursor-pointer"
             >
               Return to Main
             </button>
           </motion.div>
         ) : (
-          <div className="relative w-full bg-white/95 backdrop-blur-md rounded-3xl p-6 sm:p-7 border border-[#70121D]/15 shadow-[0_20px_50px_rgba(112,18,29,0.1)] text-[#4A0A0D]">
+          <div className="relative w-full bg-white/95 backdrop-blur-md rounded-3xl pt-2 px-6 pb-6 sm:pt-2 sm:px-7 sm:pb-7 border border-[#70121D]/15 shadow-[0_20px_50px_rgba(112,18,29,0.1)] text-[#4A0A0D]">
             {/* Close Button on top right of the form */}
             <button
               id="btn-form-card-close"
-              onClick={handleClose}
-              className="absolute top-3.5 right-3.5 w-8 h-8 rounded-full bg-[#70121D]/10 hover:bg-[#70121D]/20 text-[#70121D] flex items-center justify-center transition-colors cursor-pointer"
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                handleClose();
+              }}
+              className="absolute top-3.5 right-3.5 z-50 w-10 h-10 rounded-full bg-[#70121D]/10 hover:bg-[#70121D]/25 active:bg-[#70121D]/35 text-[#70121D] flex items-center justify-center transition-colors cursor-pointer pointer-events-auto"
               aria-label="Close form"
               title="Close"
             >
-              <X className="w-4 h-4" />
+              <X className="w-5 h-5 pointer-events-none" />
             </button>
 
-            {/* The One Burger Logo on TOP of the form */}
-            <div className="w-32 h-20 sm:w-36 sm:h-22 mx-auto -mt-1 mb-0.5 flex items-center justify-center">
-              <OneBurgerLogo customUrl={logoUrl} className="w-full h-full" />
+            {/* The One Burger Logo on TOP of the form with overlapping badge effect */}
+            <div className="relative z-20 w-44 h-26 sm:w-52 sm:h-30 mx-auto -mt-13 sm:-mt-15 mb-2 flex items-center justify-center filter drop-shadow-[0_6px_14px_rgba(112,18,29,0.16)]">
+              <OneBurgerLogo customUrl={logoUrl} className="w-full h-full object-contain" />
             </div>
 
             {/* Badge */}
@@ -264,14 +299,20 @@ export const SlideUpNoticePage: React.FC<SlideUpNoticePageProps> = ({
           </div>
           <div className="flex items-center justify-center gap-5 sm:gap-6 opacity-95">
             <div className="flex items-center justify-center transition-transform hover:scale-105" title="SkipTheDishes">
-              <SkipTheDishesLogo className="h-4.5 sm:h-5 w-auto" color="#70121D" />
+              <SkipTheDishesLogo className="h-5 sm:h-5.5 w-auto" color="#70121D" />
             </div>
             <span className="h-3.5 w-px bg-[#70121D]/30" />
             <div className="flex items-center justify-center transition-transform hover:scale-105" title="Uber Eats">
-              <UberEatsLogo className="h-4.5 sm:h-5 w-auto" color="#70121D" />
+              <UberEatsLogo className="h-3.5 sm:h-4 w-auto" color="#70121D" />
             </div>
           </div>
-          <span className="text-[9.5px] sm:text-[10px] text-[#70121D]/60 font-normal tracking-wide mt-1">
+
+          {/* Delivery Scooter Mascot */}
+          <div className="mt-1 mb-0.5 w-full flex items-center justify-center">
+            <ScooterMascot isParentOpen={isOpen} />
+          </div>
+
+          <span className="text-[9.5px] sm:text-[10px] text-[#70121D]/60 font-normal tracking-wide mt-0.5">
             One Burger • Vintage Griddled Goodness
           </span>
         </div>

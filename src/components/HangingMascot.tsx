@@ -10,7 +10,7 @@ interface HangingMascotProps {
   onUpdateMascotUrl?: (url: string) => void;
 }
 
-const STORAGE_HANGING_MASCOT_KEY = 'oneburger_hanging_mascot_url_v9';
+const STORAGE_HANGING_MASCOT_KEY = 'oneburger_hanging_mascot_url_v11';
 
 export const HangingMascot: React.FC<HangingMascotProps> = ({
   isOpen = true,
@@ -26,7 +26,6 @@ export const HangingMascot: React.FC<HangingMascotProps> = ({
     }
   });
 
-  const [bounceCount, setBounceCount] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -47,11 +46,6 @@ export const HangingMascot: React.FC<HangingMascotProps> = ({
       };
       reader.readAsDataURL(file);
     }
-  };
-
-  const handleMascotClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setBounceCount((prev) => prev + 1);
   };
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -75,7 +69,7 @@ export const HangingMascot: React.FC<HangingMascotProps> = ({
     }
   };
 
-  // Uses custom upload if provided, otherwise the authentic clean PNG or data URL fallback
+  // Uses custom upload if provided, otherwise the authentic clean PNG with bar removed and transparent edges
   const imageSource = customUrl || localUrl || '/hang.png';
 
   return (
@@ -83,27 +77,24 @@ export const HangingMascot: React.FC<HangingMascotProps> = ({
       {isOpen && (
         <motion.div
           id="hanging-mascot-wrapper"
-          className={`fixed top-0 right-1 sm:right-3 md:right-6 lg:right-10 xl:right-16 z-50 select-none pointer-events-none ${className}`}
+          className={`fixed -top-4 sm:-top-5 md:-top-7 lg:-top-8 xl:-top-9 right-1 sm:right-4 md:right-8 lg:right-14 xl:right-20 z-20 select-none pointer-events-none ${className}`}
           initial={{
-            y: -500,
+            y: -400,
             opacity: 0,
-            rotate: -12,
           }}
           animate={{
             y: 0,
             opacity: 1,
-            rotate: 0,
           }}
           exit={{
-            y: -520,
+            y: -420,
             opacity: 0,
-            rotate: -8,
-            transition: { duration: 0.45, ease: 'easeIn' },
+            transition: { duration: 0.35, ease: 'easeIn' },
           }}
           transition={{
             type: 'spring',
-            damping: 15,
-            stiffness: 90,
+            damping: 18,
+            stiffness: 110,
             delay: 0.1,
           }}
         >
@@ -122,10 +113,11 @@ export const HangingMascot: React.FC<HangingMascotProps> = ({
 
           {/*
             Hanging Mascot Container:
-            No suspension line or cord. Hand is moved up directly to top: 0, clutching the top edge.
+            Hand is moved a bit up so the knuckles hook cleanly over the top edge.
+            pointer-events-none ensures it never interferes with form buttons or clicking.
           */}
           <div
-            className={`relative w-56 h-[243px] sm:w-72 sm:h-[313px] md:w-[340px] md:h-[369px] lg:w-[400px] lg:h-[434px] xl:w-[450px] xl:h-[488px] transition-all pointer-events-auto ${
+            className={`relative w-48 aspect-[795/863] sm:w-64 md:w-[340px] lg:w-[410px] xl:w-[460px] max-h-[85vh] transition-all pointer-events-none ${
               isDragging ? 'ring-2 ring-[#70121D] ring-offset-2 rounded-2xl' : ''
             }`}
             onDragOver={handleDragOver}
@@ -133,40 +125,31 @@ export const HangingMascot: React.FC<HangingMascotProps> = ({
             onDrop={handleDrop}
           >
             {/*
-              Pendulum Sway:
-              Rotates directly from the clutched hand knuckles at the top edge (30.8% width, 0% height)
+              Subtle hanging motion:
+              Natural, very gentle pendulum sway pivoting directly from the clutched hand knuckles at top edge (30.2% width, 0% height)
             */}
             <motion.div
-              key={bounceCount}
-              id="hanging-mascot-sway"
-              className="w-full h-full relative cursor-pointer group"
+              id="hanging-mascot-subtle-sway"
+              className="w-full h-full relative pointer-events-none group"
               style={{
-                transformOrigin: '30.8% 0%',
+                transformOrigin: '30.2% 24px',
               }}
               animate={{
-                rotate: [-3.2, 3.6, -2.4, 2.6, -1.2, 1.2, -0.4, 0, -3.2],
+                rotate: [-0.9, 0.95, -0.9],
               }}
               transition={{
-                duration: 6.2,
+                duration: 4.8,
                 repeat: Infinity,
                 ease: 'easeInOut',
               }}
-              whileHover={{
-                scale: 1.02,
-                rotate: [0, -2.5, 2.5, -1, 0],
-                transition: { duration: 0.4 },
-              }}
-              whileTap={{ scale: 0.97 }}
-              onClick={handleMascotClick}
-              title="Click the King mascot to swing, or drag & drop your image here"
             >
-              <div className="relative w-full h-full flex items-start justify-center">
+              <div className="relative w-full h-full flex items-start justify-center pointer-events-none">
                 <img
                   id="hanging-burger-king-mascot-img"
                   src={imageSource}
                   alt="One Burger King Mascot Hanging"
                   referrerPolicy="no-referrer"
-                  className="w-full h-full object-contain object-top select-none pointer-events-none drop-shadow-sm"
+                  className="w-full h-full object-contain object-top select-none pointer-events-none"
                   onError={(e) => {
                     // Fallback to embedded base64 data URL if file loading fails
                     e.currentTarget.src = EXACT_HANGING_MASCOT_DATA_URL;
@@ -179,7 +162,7 @@ export const HangingMascot: React.FC<HangingMascotProps> = ({
                     e.stopPropagation();
                     fileInputRef.current?.click();
                   }}
-                  className="absolute bottom-3 right-3 w-8 h-8 rounded-full bg-[#FAF6EE]/95 hover:bg-[#FAF6EE] text-[#70121D] border border-[#70121D]/25 flex items-center justify-center shadow-md transition-all opacity-0 group-hover:opacity-100 active:scale-95 cursor-pointer z-30"
+                  className="absolute bottom-3 right-3 w-8 h-8 rounded-full bg-[#FAF6EE]/95 hover:bg-[#FAF6EE] text-[#70121D] border border-[#70121D]/25 flex items-center justify-center shadow-md transition-all opacity-0 group-hover:opacity-100 active:scale-95 cursor-pointer z-30 pointer-events-auto"
                   title="Upload / replace mascot with your file"
                   aria-label="Upload custom hanging image"
                 >
