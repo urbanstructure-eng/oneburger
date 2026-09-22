@@ -19,16 +19,37 @@ export const ScooterMascot: React.FC<ScooterMascotProps> = ({
   const [isHovered, setIsHovered] = useState(false);
   const [runKey, setRunKey] = useState(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const loopTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Trigger delivery scooter rush-in whenever the parent opens or when re-triggered
+  // Helper to start/reset the 50-second loop timer
+  const restart50sLoop = () => {
+    if (loopTimerRef.current) {
+      clearInterval(loopTimerRef.current);
+    }
+    if (isParentOpen) {
+      // Loop the drive-in animation every 50 seconds (50,000ms)
+      loopTimerRef.current = setInterval(() => {
+        setRunKey((k) => k + 1);
+      }, 50000);
+    }
+  };
+
+  // Trigger delivery scooter rush-in whenever the notice modal opens and maintain 50-second loop
   useEffect(() => {
     if (isParentOpen) {
       setRunKey((k) => k + 1);
+      restart50sLoop();
     }
+    return () => {
+      if (loopTimerRef.current) {
+        clearInterval(loopTimerRef.current);
+      }
+    };
   }, [isParentOpen]);
 
   const triggerDriveIn = () => {
     setRunKey((k) => k + 1);
+    restart50sLoop();
   };
 
   const handleFile = (file: File) => {
@@ -113,6 +134,10 @@ export const ScooterMascot: React.FC<ScooterMascotProps> = ({
           animate={{
             x: 0,
             opacity: 1,
+          }}
+          exit={{
+            opacity: 0,
+            transition: { duration: 0.3 },
           }}
           transition={{
             duration: 0.8,
